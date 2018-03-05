@@ -10,17 +10,5 @@
   {
     "url": "http://bing.com",
     "name": "Bing"
-  },
-  {
-    "url": "http://google.com",
-    "name": "Google"
-  },
-  {
-    "url": "http://yahoo.com",
-    "name": "Yahoo"
-  },
-  {
-    "url": "http://bing.com",
-    "name": "Bing"
   }
 ]

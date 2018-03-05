@@ -18,3 +18,13 @@
     }
   }
 </script>
+
+<style>
+  .wrapper {
+    float: left;
+    margin: 20px 45px 80px 45px;
+    height: 350px;
+    width: 300px;
+    overflow: hidden;
+  }
+</style>

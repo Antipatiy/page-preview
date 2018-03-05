@@ -1,14 +1,15 @@
 <template>
   <div class="urls">
     <div class="urls__item" v-for="urlsItem in urls" :key="urlsItem.id">
-      <params-list :urls-item-params="dataList"></params-list>
-      <image-item-elem :urls-src="urlsItem" v-on:list="showParams"></image-item-elem>
+      <image-item-elem :urls-src="urlsItem" v-on:list="persistParams"></image-item-elem>
       <p class="urls__name">{{ urlsItem.name }}</p>
+      <params-list :urls-item-params="dataList" :current-item="urlsItem"></params-list>
     </div>
   </div>
 </template>
 
 <script>
+  import Vue from 'vue';
   import urlData from '../data/url.json';
   import ParamsList from  './ParamsList'
   import ImageItemElem from  './ImageItemElem'
@@ -22,12 +23,12 @@
     data () {
       return {
         urls: urlData,
-        dataList: ''
+        dataList: {}
       }
     },
     methods: {
-      showParams (payload) {
-        this.dataList = payload.list;
+      persistParams (payload) {
+        Vue.set(this.dataList, payload.list.name, payload.list)
       }
     }
   }
@@ -43,15 +44,6 @@
   .urls__item {
     position: relative;
     float: left;
-  }
-
-  .wrapper {
-    float: left;
-    margin: 20px 45px 80px 45px;
-    height: 350px;
-    width: 300px;
-    border: 1px solid #000;
-    overflow: hidden;
   }
 
   .urls__item img {
