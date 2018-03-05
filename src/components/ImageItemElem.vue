@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <img :src="setImgSrc(urlsSrc.name)" @click="showParams(urlsSrc)">
+    <img :src="setImgSrc(urlsSrc.name)" @click="emitParams(urlsSrc)">
   </div>
 </template>
 
@@ -12,7 +12,7 @@
       setImgSrc (name) {
         return require('../screens/' + name + '.png');
       },
-      showParams (params) {
+      emitParams (params) {
         this.$emit('list', { list: params })
       }
     }

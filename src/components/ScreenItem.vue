@@ -2,7 +2,7 @@
   <div class="urls">
     <div class="urls__item" v-for="urlsItem in urls" :key="urlsItem.id">
       <params-list :urls-item-params="dataList"></params-list>
-      <image-item-elem :urcls-src="urlsItem" v-on:list="zzz"></image-item-elem>
+      <image-item-elem :urls-src="urlsItem" v-on:list="showParams"></image-item-elem>
       <p class="urls__name">{{ urlsItem.name }}</p>
     </div>
   </div>
@@ -26,7 +26,7 @@
       }
     },
     methods: {
-      zzz (payload) {
+      showParams (payload) {
         this.dataList = payload.list;
       }
     }
