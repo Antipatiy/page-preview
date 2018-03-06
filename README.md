@@ -1,6 +1,10 @@
-# page-preview
+# Page-Preview
 
 > A Vue.js project
+
+## Take a json-file with urls and names. Show a previews of this pages
+
+### The project uses a phantom.js
 
 ## Build Setup
 
