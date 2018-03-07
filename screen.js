@@ -1,38 +1,38 @@
+"use strict";
+
+const phantom = require('phantom');
+const urlData = require('./src/data/url.json');
+const fs = require('fs');
+const exec = require('child_process').exec;
+const path = './src/screens';
+const errorScreen = 'https://i.stack.imgur.com/WOlr3.png';
+const screenPath = 'src/screens/';
+
 class Screen {
-  constructor() {
-    this.phantom = require('phantom');
-    this.urlData = require('./src/data/url.json');
-    this.fs = require('fs');
-    this.dir = './src/screens';
-    this.exec = require('child_process').exec;
-    this.path = './src/screens';
-    this.errorScreen = 'https://i.stack.imgur.com/WOlr3.png';
-    this.screenPath = 'src/screens/';
-  }
 
   removeScreensDirectory () {
-    this.exec('rm -r ' + this.path, function (err) {});
+    exec('rm -r ' + path, function (err) {});
   }
 
   createScreensDirectory () {
-    if (!this.fs.existsSync(this.dir)){
-      this.fs.mkdirSync(this.dir);
+    if (!fs.existsSync(path)){
+      fs.mkdirSync(path);
     }
   }
 
   async takeScreenshot (urlData, name) {
-    const instance = await this.phantom.create();
+    const instance = await phantom.create();
     const page = await instance.createPage();
     const status = await page.open(urlData);
     const fileName = name + '.png';
 
     if (status === 'success') {
-      await page.render(this.screenPath + fileName);
+      await page.render(screenPath + fileName);
     }
 
     else {
-      await page.open(this.errorScreen);
-      await page.render(this.screenPath + fileName);
+      await page.open(errorScreen);
+      await page.render(screenPath + fileName);
     }
     console.log(name + ' ' + status);
 
@@ -40,16 +40,17 @@ class Screen {
   }
 
   renderAllScreens () {
-    for (let i = 0; i < this.urlData.length; i++) {
-      this.takeScreenshot(this.urlData[i].url, this.urlData[i].name);
+    for (let i = 0; i < urlData.length; i++) {
+      this.takeScreenshot(urlData[i].url, urlData[i].name);
     }
   }
 
-  init () {
+  startProcess () {
     this.removeScreensDirectory();
     this.createScreensDirectory();
     this.renderAllScreens()
   }
 }
 
-new Screen().init();
+const screen = new Screen();
+screen.startProcess();
