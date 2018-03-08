@@ -31,17 +31,31 @@ class Screen {
     }
 
     else {
-      await page.open(errorScreen);
-      await page.render(screenPath + fileName);
+      try {
+        await page.open(errorScreen);
+        await page.render(screenPath + fileName);
+        throw new Error(status);
+      }
+      catch (error) {
+        console.log(name + ' was not render -> ', error);
+      }
     }
-    console.log(name + ' ' + status);
 
     await instance.exit();
   }
 
   renderAllScreens () {
-    for (let i = 0; i < urlData.length; i++) {
-      this.takeScreenshot(urlData[i].url, urlData[i].name);
+    try {
+      for (let i = 0; i < urlData.length; i++) {
+        this.takeScreenshot(urlData[i].url, urlData[i].name);
+
+        if (!urlData[i].url || !urlData[i].name) {
+          throw new Error('No data in file "url.json" in ' + i + ' element' );
+        }
+      }
+    }
+    catch (error) {
+      console.log(error)
     }
   }
 
