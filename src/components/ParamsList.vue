@@ -9,7 +9,16 @@
 <script>
   export default {
     name: 'ParamsList',
-    props: ['urlsItemParams', 'currentItem'],
+    props: {
+      urlsItemParams: {
+        type: Object,
+        required: true
+      },
+      currentItem: {
+        type: Object,
+        required: true
+      }
+    },
     computed: {
       showParams () {
         return this.urlsItemParams[this.currentItem.name]

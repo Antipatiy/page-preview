@@ -7,7 +7,12 @@
 <script>
   export default {
     name: 'ImageItemElem',
-    props: ['urlsSrc'],
+    props: {
+      urlsSrc: {
+        type: Object,
+        required: true
+      }
+    },
     methods: {
       setImgSrc (name) {
         return require('../screens/' + name + '.png');
